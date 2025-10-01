@@ -1,0 +1,1 @@
+# See STONE_Setup_Manual.md content from previous file creation
