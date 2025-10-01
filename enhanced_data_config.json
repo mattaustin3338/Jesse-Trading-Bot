@@ -1,1 +1,137 @@
-# See enhanced_data_config.json content from previous file creation
+{
+  "port": 8766,
+  "buffer_size": 2000,
+  "database_path": "enhanced_market_data.db",
+  
+  "data_feeds": {
+    "kraken": {
+      "enabled": true,
+      "websocket_url": "wss://ws.kraken.com"
+    },
+    "binance": {
+      "enabled": true,
+      "websocket_url": "wss://stream.binance.com:9443/ws"
+    },
+    "tradier": {
+      "enabled": false,
+      "api_key": "YOUR_TRADIER_API_KEY_HERE",
+      "environment": "sandbox",
+      "note": "Set enabled to true and add your API key to activate Tradier data"
+    },
+    "dexscreener": {
+      "enabled": true,
+      "note": "Free API for launchpad token data"
+    },
+    "coingecko": {
+      "enabled": true,
+      "note": "Free tier - 100 calls per minute"
+    }
+  },
+  
+  "subscriptions": {
+    "kraken_pairs": ["BTC/USD", "ETH/USD", "ADA/USD", "SOL/USD"],
+    "binance_pairs": ["BTCUSDT", "ETHUSDT", "ADAUSDT", "SOLUSDT"],
+    "tradier_symbols": ["SPY", "QQQ", "AAPL", "TSLA", "ES", "MES"],
+    "launchpad_tokens": [
+      "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984",
+      "0x6b175474e89094c44da98b954eedeac495271d0f"
+    ],
+    "coingecko_coins": ["bitcoin", "ethereum", "cardano", "solana", "chainlink"]
+  },
+  
+  "asset_types": {
+    "crypto_spot": {
+      "sources": ["kraken", "binance", "coingecko"],
+      "symbols": ["BTC", "ETH", "ADA", "SOL", "LINK"]
+    },
+    "stocks": {
+      "sources": ["tradier"],
+      "symbols": ["SPY", "QQQ", "AAPL", "GOOGL", "MSFT", "TSLA"]
+    },
+    "futures": {
+      "sources": ["tradier"],
+      "symbols": ["ES", "MES", "NQ", "MNQ", "YM", "MYM"]
+    },
+    "options": {
+      "sources": ["tradier"],
+      "symbols": ["SPY_230616C00420000", "QQQ_230616P00350000"]
+    },
+    "launchpad_tokens": {
+      "sources": ["dexscreener"],
+      "chains": ["ethereum", "bsc", "polygon", "solana"]
+    }
+  },
+  
+  "features": {
+    "real_time_streaming": true,
+    "historical_data": true,
+    "portfolio_tracking": true,
+    "paper_trading": true,
+    "backtesting": true,
+    "risk_management": true,
+    "notifications": true,
+    "export_to_excel": true
+  },
+  
+  "paper_trading": {
+    "enabled": true,
+    "starting_balance": 100000,
+    "commission": 0.001,
+    "slippage": 0.0005,
+    "max_positions": 10
+  },
+  
+  "risk_management": {
+    "max_position_size": 0.1,
+    "max_portfolio_risk": 0.02,
+    "stop_loss_pct": 0.05,
+    "take_profit_pct": 0.15
+  },
+  
+  "logging": {
+    "level": "INFO",
+    "file": "enhanced_data_server.log",
+    "max_size_mb": 100,
+    "backup_count": 5
+  },
+  
+  "api_limits": {
+    "coingecko_calls_per_minute": 100,
+    "dexscreener_calls_per_second": 2,
+    "tradier_calls_per_minute": 120
+  },
+  
+  "data_sources_info": {
+    "kraken": {
+      "description": "Major crypto exchange with WebSocket API",
+      "cost": "Free",
+      "rate_limits": "No strict limits for WebSocket",
+      "asset_types": ["crypto_spot", "crypto_futures"]
+    },
+    "binance": {
+      "description": "World's largest crypto exchange",
+      "cost": "Free",
+      "rate_limits": "1000 requests per minute",
+      "asset_types": ["crypto_spot", "crypto_futures"]
+    },
+    "tradier": {
+      "description": "US stocks, options, and futures",
+      "cost": "Free sandbox, paid for live data",
+      "rate_limits": "120 requests per minute",
+      "asset_types": ["stocks", "options", "futures"],
+      "signup_url": "https://developer.tradier.com"
+    },
+    "dexscreener": {
+      "description": "DEX and launchpad token data",
+      "cost": "Free",
+      "rate_limits": "2 requests per second",
+      "asset_types": ["launchpad_tokens"]
+    },
+    "coingecko": {
+      "description": "Comprehensive crypto market data",
+      "cost": "Free tier available",
+      "rate_limits": "100 calls per minute",
+      "asset_types": ["crypto_spot"]
+    }
+  }
+}
